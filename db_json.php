@@ -4,7 +4,7 @@
 
 define('DATA_FILE', __DIR__ . '/data/data.json');
 
-function ensure_data_file_exists(){
+function ensure_data_file_exists_local(){
     $dir = dirname(DATA_FILE);
     if (!is_dir($dir)){
         mkdir($dir, 0755, true);
@@ -18,10 +18,10 @@ function ensure_data_file_exists(){
     }
 }
 
-function load_data(){
+function load_data_local(){
     static $data = null;
     if ($data !== null) return $data;
-    ensure_data_file_exists();
+    ensure_data_file_exists_local();
     $raw = file_get_contents(DATA_FILE);
     $decoded = json_decode($raw, true);
     if (!is_array($decoded)) {
@@ -31,8 +31,8 @@ function load_data(){
     return $data;
 }
 
-function save_data($data){
-    ensure_data_file_exists();
+function save_data_local($data){
+    ensure_data_file_exists_local();
     file_put_contents(DATA_FILE, json_encode($data, JSON_PRETTY_PRINT));
 }
 
@@ -66,6 +66,7 @@ function joinTournamentWithLocation($t){
 
 function getUpcomingTournaments($limit = null){
     $data = load_data();
+    date_default_timezone_set('America/New_York'); 
     $now = date("Y-m-d H:i:s");
     $ts = isset($data['tournaments']) ? $data['tournaments'] : array();
     $filtered = array_filter($ts, function($t) use ($now){
