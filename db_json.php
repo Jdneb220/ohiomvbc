@@ -149,7 +149,7 @@ class JSONResult {
     public function num_rows(){ return count($this->rows); }
 }
 
-function mysql_query($query){
+function mysql_query_local($query){
     $q = strtolower($query);
     if (strpos($q, 'select') === 0){
         // tournaments queries
@@ -199,7 +199,7 @@ function mysql_query($query){
     return true;
 }
 
-function mysql_fetch_array($res, $mode = MYSQL_ASSOC){ if ($res instanceof JSONResult) return $res->fetch(); return false; }
-function mysql_num_rows($res){ if ($res instanceof JSONResult) return $res->num_rows(); return 0; }
+function mysql_fetch_array_local($res, $mode = MYSQL_ASSOC){ if ($res instanceof JSONResult) return $res->fetch(); return false; }
+function mysql_num_rows_local($res){ if ($res instanceof JSONResult) return $res->num_rows(); return 0; }
 
 ?>
