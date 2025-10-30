@@ -4,6 +4,8 @@
 
 define('DATA_FILE', __DIR__ . '/data/data.json');
 
+if (!function_exists('ensure_data_file_exists_local')) {
+
 function ensure_data_file_exists_local(){
     $dir = dirname(DATA_FILE);
     if (!is_dir($dir)){
@@ -16,6 +18,8 @@ function ensure_data_file_exists_local(){
         );
         file_put_contents(DATA_FILE, json_encode($initial, JSON_PRETTY_PRINT));
     }
+}
+    
 }
 
 function load_data(){
@@ -65,7 +69,7 @@ function joinTournamentWithLocation($t){
 }
 
 function getAllUpcomingTournaments(){
-    getUpcomingTournaments(3);
+    return getUpcomingTournaments(3);
 }
 
 function getUpcomingTournaments($limit = null){
