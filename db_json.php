@@ -22,6 +22,7 @@ function ensure_data_file_exists_local(){
     
 }
 
+if (!function_exists('load_data')) {
 function load_data(){
     static $data = null;
     if ($data !== null) return $data;
@@ -34,19 +35,21 @@ function load_data(){
     $data = $decoded;
     return $data;
 }
+}
 
+if (!function_exists('save_data')) {
 function save_data($data){
     ensure_data_file_exists_local();
     file_put_contents(DATA_FILE, json_encode($data, JSON_PRETTY_PRINT));
 }
-
+}if (!function_exists('getAllLocations')) {
 function getAllLocations(){
     $data = load_data();
     $locations = isset($data['locations']) ? $data['locations'] : array();
     usort($locations, function($a,$b){ return strcmp($a['Name'],$b['Name']); });
     return $locations;
 }
-
+}if (!function_exists('getTournamentById')) {
 function getTournamentById($id){
     $data = load_data();
     foreach ($data['tournaments'] as $t){
@@ -54,7 +57,7 @@ function getTournamentById($id){
     }
     return null;
 }
-
+}if (!function_exists('joinTournamentWithLocation')) {
 function joinTournamentWithLocation($t){
     $locations = load_data()['locations'];
     foreach ($locations as $loc){
@@ -67,11 +70,11 @@ function joinTournamentWithLocation($t){
     if (!isset($t['Address'])) $t['Address'] = '';
     return $t;
 }
-
+}if (!function_exists('getAllUpcomingTournaments')) {
 function getAllUpcomingTournaments(){
     return getUpcomingTournaments(3);
 }
-
+}if (!function_exists('getUpcomingTournaments')) {
 function getUpcomingTournaments($limit = null){
     $data = load_data();
     date_default_timezone_set('America/New_York'); 
@@ -91,7 +94,7 @@ function getUpcomingTournaments($limit = null){
     if ($limit !== null) return array_slice($result, 0, (int)$limit);
     return $result;
 }
-
+}if (!function_exists('getTournamentsThisMonth')) {
 function getTournamentsThisMonth($limit = null){
     $data = load_data();
     $month = date('n');
@@ -106,7 +109,7 @@ function getTournamentsThisMonth($limit = null){
     if ($limit !== null) return array_slice($result, 0, (int)$limit);
     return $result;
 }
-
+}if (!function_exists('tournamentDateFormat')) {
 // Keep the date formatting helpers for backwards compatibility
 function tournamentDateFormat($date){
     $month = substr($date, 5, 2);
@@ -128,20 +131,20 @@ function tournamentDateFormat($date){
     }
     echo $month . " " . $day . $year;
 }
-
+}if (!function_exists('tournamentShortDateFormat')) {
 function tournamentShortDateFormat($date){
     $month = substr($date, 5, 2);
     $day = substr($date, 8, 2);
     $year = substr($date, 0, 4);
     return ltrim($month,'0') . "/" . ltrim($day,'0') . "/" . $year;
 }
-
+}if (!function_exists('tournamentShorterDateFormat')) {
 function tournamentShorterDateFormat($date){
     $month = substr($date, 5, 2);
     $day = substr($date, 8, 2);
     return ltrim($month,'0') . "/" . ltrim($day,'0');
 }
-
+}if (!function_exists('tournamentDayOfTheWeek')) {
 function tournamentDayOfTheWeek($date){
     $month = substr($date, 5, 2);
     $day = substr($date, 8, 2);
@@ -149,6 +152,7 @@ function tournamentDayOfTheWeek($date){
     return date("l", mktime(0, 0, 0, $month, $day, $year));
 }
 
+}if (!class_exists('JSONResult')) {
 // --- Minimal mysql_* compatibility wrappers (read-only for common queries) ---
 class JSONResult {
     private $rows;
@@ -158,6 +162,7 @@ class JSONResult {
     public function num_rows(){ return count($this->rows); }
 }
 
+}if (!function_exists('mysql_query_local')) {
 function mysql_query_local($query){
     $q = strtolower($query);
     if (strpos($q, 'select') === 0){
@@ -207,8 +212,10 @@ function mysql_query_local($query){
     // non-select queries are treated as no-op (return true)
     return true;
 }
-
+}if (!function_exists('mysql_fetch_array_local')) {
 function mysql_fetch_array_local($res, $mode = MYSQL_ASSOC){ if ($res instanceof JSONResult) return $res->fetch(); return false; }
-function mysql_num_rows_local($res){ if ($res instanceof JSONResult) return $res->num_rows(); return 0; }
 
+}if (!function_exists('mysql_num_rows_local')) {
+    function mysql_num_rows_local($res){ if ($res instanceof JSONResult) return $res->num_rows(); return 0; }
+}
 ?>
