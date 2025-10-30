@@ -61,10 +61,12 @@
 						<div class="inner">
 
 							<p>
+								<?php
                       $tourneys = getTournamentsThisMonth(3);
                       foreach ($tourneys as $row) {
                         echo '<li><a href="tournament.php?ID='.htmlspecialchars($row['ID']).'">'.htmlspecialchars($row['Name']).'</a> ('.tournamentShorterDateFormat($row['StartDate']).')</li>'; 
                       }
+?>
 
 								<strong>Ohio MVBC:</strong> Ohio Midwest Volleyball Club
 			
