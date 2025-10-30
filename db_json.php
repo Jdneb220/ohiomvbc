@@ -64,6 +64,10 @@ function joinTournamentWithLocation($t){
     return $t;
 }
 
+function getAllUpcomingTournaments(){
+    getUpcomingTournaments(3);
+}
+
 function getUpcomingTournaments($limit = null){
     $data = load_data();
     date_default_timezone_set('America/New_York'); 
