@@ -2,6 +2,7 @@ FROM php:5.6-apache
 
 # Install the legacy mysql extension
 RUN docker-php-ext-install mysql
+RUN docker-php-ext-install calendar
 
 # Copy your app into the container
 COPY . /var/www/html/
