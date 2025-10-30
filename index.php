@@ -52,19 +52,6 @@
 
 							</header>
 
-							
-
-							<?php
-												  require ('db_json.php');
-
-												  $upcoming = false;
-												  $tourneys = getUpcomingTournaments(2);
-												  foreach ($tourneys as $row) { 
-												  $upcoming = true;
-
-							</p>
-
-
 
 							
 
