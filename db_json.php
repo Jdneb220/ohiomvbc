@@ -18,7 +18,7 @@ function ensure_data_file_exists_local(){
     }
 }
 
-function load_data_local(){
+function load_data(){
     static $data = null;
     if ($data !== null) return $data;
     ensure_data_file_exists_local();
@@ -31,7 +31,7 @@ function load_data_local(){
     return $data;
 }
 
-function save_data_local($data){
+function save_data($data){
     ensure_data_file_exists_local();
     file_put_contents(DATA_FILE, json_encode($data, JSON_PRETTY_PRINT));
 }
