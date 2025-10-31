@@ -160,7 +160,7 @@
     </div>
 
 									
-
+<?php
 									if ($finalSpan > 0){
 
 									  echo '<td class="pad" colspan="'.$finalSpan.'"><span>&nbsp;</span></td>';
