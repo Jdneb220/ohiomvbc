@@ -97,6 +97,7 @@ function getUpcomingTournaments($limit = null){
 }if (!function_exists('getTournamentsThisMonth')) {
 function getTournamentsThisMonth($limit = null){
     $data = load_data();
+    date_default_timezone_set('America/New_York'); 
     $month = date('n');
     $ts = isset($data['tournaments']) ? $data['tournaments'] : array();
     $filtered = array_filter($ts, function($t) use ($month){
