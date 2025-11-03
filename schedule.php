@@ -60,7 +60,7 @@
 
 						<tr><th>Date</th><th>Day</th>
 
-						<th>Format</th>
+						<th style="min-width:300px">Format</th>
 
 						<th>Level</th>
 
